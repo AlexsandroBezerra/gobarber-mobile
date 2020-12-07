@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "commit": "cz",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -43,6 +44,7 @@
     "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
     "babel-jest": "^25.1.0",
+    "commitizen": "^4.2.2",
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^6.15.0",
     "eslint-config-standard": "^16.0.2",
@@ -73,7 +75,13 @@
   },
   "husky": {
     "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
     }
   }
 }
