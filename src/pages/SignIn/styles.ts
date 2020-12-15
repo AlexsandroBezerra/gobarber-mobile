@@ -1,5 +1,5 @@
 import styled from 'styled-components/native'
-import { getBottomSpace } from 'react-native-iphone-x-helper'
+import { getBottomSpace, isIphoneX } from 'react-native-iphone-x-helper'
 import { Platform } from 'react-native'
 
 export const Container = styled.View`
@@ -34,7 +34,7 @@ export const CreateAccountButton = styled.TouchableOpacity`
   background: #312e38;
   border-top-width: 1px;
   border-color: #232129;
-  padding: 16px 0 ${16 + getBottomSpace()}px;
+  padding: 16px 0 ${isIphoneX() ? 16 + getBottomSpace() : 16}px;
 
   align-items: center;
   justify-content: center;
