@@ -8,6 +8,7 @@ import {
   Alert
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import { useNavigation } from '@react-navigation/native'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/mobile'
@@ -127,6 +128,31 @@ const SignIn: React.FC = () => {
     navigation.goBack()
   }, [navigation])
 
+  const handleUpdateAvatar = useCallback(() => {
+    launchImageLibrary({ mediaType: 'photo' }, response => {
+      if (response.didCancel) {
+        return
+      }
+
+      if (response.errorMessage) {
+        Alert.alert('Erro ao atualizar o seu avatar.')
+        return
+      }
+
+      const data = new FormData()
+
+      data.append('avatar', {
+        uri: response.uri,
+        name: `${user.id}.jpg`,
+        type: 'image/jpeg'
+      })
+
+      api
+        .patch('users/avatar', data)
+        .then(response => updateUser(response.data))
+    })
+  }, [])
+
   return (
     <>
       <KeyboardAvoidingView
@@ -143,7 +169,7 @@ const SignIn: React.FC = () => {
               <Icon name="chevron-left" size={24} color="#999591" />
             </BackButton>
 
-            <UserAvatarButton onPress={() => {}}>
+            <UserAvatarButton onPress={handleUpdateAvatar}>
               <UserAvatar source={{ uri: user.avatarUrl }} />
             </UserAvatarButton>
 
