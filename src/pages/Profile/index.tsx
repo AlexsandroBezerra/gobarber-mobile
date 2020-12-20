@@ -151,7 +151,7 @@ const SignIn: React.FC = () => {
         .patch('users/avatar', data)
         .then(response => updateUser(response.data))
     })
-  }, [])
+  }, [updateUser, user.id])
 
   return (
     <>
