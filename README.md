@@ -40,8 +40,6 @@
 
 </br>
 
-## :construction: Construction zone :construction:
-
 <p id="about"></p>
 
 ## :information_desk_person: About the project
